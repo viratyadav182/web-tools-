@@ -3,145 +3,240 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>URL Shortener</title>
+  <title>Tools Hub - Your All-in-One Utility</title>
   <style>
-    * {
-      box-sizing: border-box;
+    :root {
+      --primary: #007BFF;
+      --light-blue: #e6f0ff;
+      --text: #333;
+      --bg: #ffffff;
     }
 
     body {
-      font-family: 'Segoe UI', sans-serif;
       margin: 0;
-      background: #f0f9ff;
-      color: #333;
+      font-family: 'Segoe UI', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+    }
+
+    header {
+      background: var(--primary);
+      color: white;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .logo {
+      font-weight: bold;
+      font-size: 1.5rem;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      margin-left: 1.2rem;
+      font-weight: 500;
+    }
+
+    .hero {
+      text-align: center;
+      padding: 60px 20px 40px;
+      background: var(--light-blue);
+    }
+
+    .hero h1 {
+      font-size: 2.2rem;
+      color: var(--primary);
+    }
+
+    .hero p {
+      max-width: 500px;
+      margin: 10px auto 20px;
+    }
+
+    .hero button {
+      padding: 12px 25px;
+      font-size: 1rem;
+      background: var(--primary);
+      border: none;
+      color: white;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    .search-bar {
+      text-align: center;
+      margin: 30px auto 20px;
+      padding: 0 15px;
+    }
+
+    #searchInput {
+      width: 100%;
+      max-width: 400px;
+      padding: 12px;
+      font-size: 1rem;
+      border: 2px solid var(--primary);
+      border-radius: 8px;
+    }
+
+    .section {
+      padding: 40px 20px 20px;
+    }
+
+    .section h2 {
+      color: var(--primary);
+    }
+
+    .section p {
+      margin-bottom: 20px;
+      color: #666;
+    }
+
+    .tools-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 20px;
+    }
+
+    .tool-card {
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+      padding: 20px;
+      transition: transform 0.2s;
       display: flex;
       flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      min-height: 100vh;
-      padding: 20px;
+      justify-content: space-between;
     }
 
-    .container {
-      background: white;
-      padding: 30px;
-      border-radius: 12px;
-      box-shadow: 0 0 15px rgba(0,0,0,0.1);
-      max-width: 500px;
-      width: 100%;
+    .tool-card:hover {
+      transform: translateY(-5px);
     }
 
-    h1 {
-      text-align: center;
-      color: #007BFF;
+    .tool-card h4 {
+      margin: 0 0 5px;
+      font-size: 1.1rem;
+      color: var(--primary);
     }
 
-    input[type="url"] {
-      width: 100%;
-      padding: 12px;
-      margin: 10px 0;
-      border: 2px solid #007BFF;
-      border-radius: 8px;
-      font-size: 16px;
+    .tool-card p {
+      font-size: 0.9rem;
+      color: #555;
+      flex: 1;
     }
 
-    button {
-      width: 100%;
-      padding: 12px;
-      background-color: #007BFF;
-      color: white;
-      font-size: 16px;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
+    .tool-card button {
       margin-top: 10px;
+      padding: 8px 16px;
+      background: var(--primary);
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 0.9rem;
     }
 
-    button:hover {
-      background-color: #0056b3;
-    }
-
-    .result {
-      margin-top: 20px;
+    footer {
+      background: #f5faff;
+      padding: 30px 20px;
       text-align: center;
+      font-size: 0.9rem;
     }
 
-    .short-url {
-      word-break: break-word;
-      background: #e6f3ff;
-      padding: 10px;
-      border-radius: 8px;
+    footer .logo {
+      font-size: 1.2rem;
+      font-weight: bold;
+      color: var(--primary);
     }
 
-    @media (max-width: 500px) {
-      .container {
-        padding: 20px;
-      }
+    footer a {
+      color: var(--primary);
+      text-decoration: none;
+      margin: 0 10px;
+    }
 
-      input, button {
-        font-size: 14px;
+    @media (max-width: 600px) {
+      .hero h1 {
+        font-size: 1.7rem;
       }
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <h1>🔗 URL Shortener</h1>
-    <input type="url" id="longUrl" placeholder="Enter long URL (e.g., https://example.com)" />
-    <button onclick="shortenUrl()">Shorten</button>
-    <div class="result" id="result"></div>
+
+<header>
+  <div class="logo">Tools Wonder</div>
+  <nav>
+    <a href="#">Home</a>
+    <a href="#">Tools</a>
+    <a href="mailto:toolshub@gmail.com">Contact</a>
+  </nav>
+</header>
+
+<section class="hero">
+  <h1>Your Daily Tools, All in One Place</h1>
+  <p>Convert, calculate, compress, and simplify your everyday tasks — fast and free.</p>
+  <button onclick="document.getElementById('searchInput').focus()">Explore Tools</button>
+</section>
+
+<section class="search-bar">
+  <input type="text" id="searchInput" placeholder="Search a tool..." onkeyup="filterTools()" />
+</section>
+
+<!-- TOOL SECTIONS START -->
+
+<div class="section">
+  <h2>🖼 Image Tools</h2>
+  <p>Quick image editing and conversions.</p>
+  <div class="tools-grid" id="image-tools">
+    <div class="tool-card"><h4>Image Converter</h4><p>Convert images to different formats.</p><button>Use Tool</button></div>
+    <div class="tool-card"><h4>Image Compressor</h4><p>Compress image size without losing quality.</p><button>Use Tool</button></div>
+    <div class="tool-card"><h4>Image Resizer</h4><p>Resize images to custom dimensions.</p><button>Use Tool</button></div>
+    <div class="tool-card"><h4>Image Cropper</h4><p>Crop images quickly and easily.</p><button>Use Tool</button></div>
+    <div class="tool-card"><h4>Image to Text (OCR)</h4><p>Extract text from image files.</p><button>Use Tool</button></div>
+    <div class="tool-card"><h4>Image Rotator</h4><p>Rotate or flip your images.</p><button>Use Tool</button></div>
   </div>
+</div>
 
-  <script>
-    // Redirect if URL contains a hash (e.g., #abc12)
-    window.onload = function () {
-      const hash = location.hash.slice(1);
-      if (hash) {
-        const longUrl = localStorage.getItem('short_' + hash);
-        if (longUrl) {
-          window.location.href = longUrl;
-        } else {
-          document.getElementById('result').innerHTML = `<p style="color:red;">❌ Invalid short URL code.</p>`;
-        }
-      }
-    };
+<div class="section">
+  <h2>📄 Document Tools</h2>
+  <p>Manage and convert your PDF and document files.</p>
+  <div class="tools-grid" id="doc-tools">
+    <div class="tool-card"><h4>PDF to Word</h4><p>Convert PDFs to editable Word documents.</p><button>Use Tool</button></div>
+    <div class="tool-card"><h4>PDF Compressor</h4><p>Reduce PDF file size quickly.</p><button>Use Tool</button></div>
+    <div class="tool-card"><h4>PDF Merger</h4><p>Combine multiple PDFs into one.</p><button>Use Tool</button></div>
+    <div class="tool-card"><h4>Document Converter</h4><p>Convert files like DOCX, TXT, etc.</p><button>Use Tool</button></div>
+    <div class="tool-card"><h4>PDF Unlock</h4><p>Remove password protection from PDFs.</p><button>Use Tool</button></div>
+    <div class="tool-card"><h4>eSign PDF</h4><p>Add digital signatures to PDFs.</p><button>Use Tool</button></div>
+  </div>
+</div>
 
-    function shortenUrl() {
-      const longUrlInput = document.getElementById('longUrl');
-      const longUrl = longUrlInput.value.trim();
-      if (!isValidUrl(longUrl)) {
-        alert("Please enter a valid URL (include http/https).");
-        return;
-      }
+<!-- Add similar blocks for Calculator Tools, Text Tools, Web Tools, Color Tools, SEO Tools, Utility Tools -->
 
-      const code = generateCode(5);
-      localStorage.setItem('short_' + code, longUrl);
+<footer>
+  <div class="logo">Tools Hub</div>
+  <p>Simplifying your digital life.</p>
+  <p>Contact us: <a href="mailto:toolshub@gmail.com">toolshub@gmail.com</a></p>
+  <p><a href="#">Privacy Policy</a> | <a href="#">Terms of Use</a></p>
+</footer>
 
-      const shortUrl = window.location.origin + window.location.pathname + '#' + code;
-      document.getElementById('result').innerHTML = `
-        <p><strong>Short URL:</strong></p>
-        <p class="short-url"><a href="${shortUrl}" target="_blank">${shortUrl}</a></p>
-      `;
-      longUrlInput.value = '';
-    }
+<script>
+  function filterTools() {
+    const query = document.getElementById('searchInput').value.toLowerCase();
+    const allGrids = document.querySelectorAll('.tools-grid');
 
-    function generateCode(length = 5) {
-      const chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
-      let code = '';
-      for (let i = 0; i < length; i++) {
-        code += chars.charAt(Math.floor(Math.random() * chars.length));
-      }
-      return code;
-    }
+    allGrids.forEach(grid => {
+      const cards = grid.querySelectorAll('.tool-card');
+      cards.forEach(card => {
+        const text = card.innerText.toLowerCase();
+        card.style.display = text.includes(query) ? 'flex' : 'none';
+      });
+    });
+  }
+</script>
 
-    function isValidUrl(url) {
-      try {
-        const parsed = new URL(url);
-        return ['http:', 'https:'].includes(parsed.protocol);
-      } catch {
-        return false;
-      }
-    }
-  </script>
 </body>
 </html>
