@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>URL Shortener</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      background: #f0f9ff;
+      color: #333;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 20px;
+    }
+
+    .container {
+      background: white;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.1);
+      max-width: 500px;
+      width: 100%;
+    }
+
+    h1 {
+      text-align: center;
+      color: #007BFF;
+    }
+
+    input[type="url"] {
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0;
+      border: 2px solid #007BFF;
+      border-radius: 8px;
+      font-size: 16px;
+    }
+
+    button {
+      width: 100%;
+      padding: 12px;
+      background-color: #007BFF;
+      color: white;
+      font-size: 16px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+
+    .result {
+      margin-top: 20px;
+      text-align: center;
+    }
+
+    .short-url {
+      word-break: break-word;
+      background: #e6f3ff;
+      padding: 10px;
+      border-radius: 8px;
+    }
+
+    @media (max-width: 500px) {
+      .container {
+        padding: 20px;
+      }
+
+      input, button {
+        font-size: 14px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>🔗 URL Shortener</h1>
+    <input type="url" id="longUrl" placeholder="Enter long URL (e.g., https://example.com)" />
+    <button onclick="shortenUrl()">Shorten</button>
+    <div class="result" id="result"></div>
+  </div>
+
+  <script>
+    // Redirect if URL contains a hash (e.g., #abc12)
+    window.onload = function () {
+      const hash = location.hash.slice(1);
+      if (hash) {
+        const longUrl = localStorage.getItem('short_' + hash);
+        if (longUrl) {
+          window.location.href = longUrl;
+        } else {
+          document.getElementById('result').innerHTML = `<p style="color:red;">❌ Invalid short URL code.</p>`;
+        }
+      }
+    };
+
+    function shortenUrl() {
+      const longUrlInput = document.getElementById('longUrl');
+      const longUrl = longUrlInput.value.trim();
+      if (!isValidUrl(longUrl)) {
+        alert("Please enter a valid URL (include http/https).");
+        return;
+      }
+
+      const code = generateCode(5);
+      localStorage.setItem('short_' + code, longUrl);
+
+      const shortUrl = window.location.origin + window.location.pathname + '#' + code;
+      document.getElementById('result').innerHTML = `
+        <p><strong>Short URL:</strong></p>
+        <p class="short-url"><a href="${shortUrl}" target="_blank">${shortUrl}</a></p>
+      `;
+      longUrlInput.value = '';
+    }
+
+    function generateCode(length = 5) {
+      const chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+      let code = '';
+      for (let i = 0; i < length; i++) {
+        code += chars.charAt(Math.floor(Math.random() * chars.length));
+      }
+      return code;
+    }
+
+    function isValidUrl(url) {
+      try {
+        const parsed = new URL(url);
+        return ['http:', 'https:'].includes(parsed.protocol);
+      } catch {
+        return false;
+      }
+    }
+  </script>
+</body>
+</html>
